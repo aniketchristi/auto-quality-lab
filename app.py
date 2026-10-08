@@ -6,6 +6,7 @@ import plotly.express as px
 import streamlit as st
 from auto_quality.analysis import read, review_queue, last_complete_month
 from auto_quality.common import ROOT
+from auto_quality.quality import date_profile
 
 st.set_page_config(page_title='Auto Quality Lab',page_icon=None,layout='wide')
 st.title('Auto Quality Lab')
@@ -96,6 +97,12 @@ with investigation:
                 st.write('Remedy: '+(row.remedy or 'Not provided'))
                 st.link_button('View official campaign record',f'https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber={row.campaign_number}')
 with sources:
+    st.subheader('Reporting dates in the selected scope')
+    date_records = read('SELECT odi_number,incident_date,received_date FROM complaint_detail WHERE vehicle_key=ANY(%s)', (keys,))
+    date_summary, lag_distribution = date_profile(date_records, as_of)
+    st.json(date_summary)
+    st.dataframe(lag_distribution, hide_index=True, width='stretch')
+    st.caption('Lag is receipt date minus incident date. Missing dates and negative intervals are excluded from lag statistics. Historical cutoffs use current revised records; later receipts are counted separately and excluded from lag statistics.')
     st.markdown('''Sources: [NHTSA datasets and APIs](https://www.nhtsa.gov/nhtsa-datasets-and-apis), [complaint dictionary](https://static.nhtsa.gov/odi/ffdd/cmpl/CMPL.txt).
 
 The initial cohort uses exact API model labels. Hybrid, hatchback, performance, and other separately named variants may be omitted. Vehicle population and mileage exposure are unavailable in this model. Negative findings and low counts do not prove absence of defects.

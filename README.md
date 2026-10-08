@@ -68,6 +68,7 @@ Local database authentication trusts local connections. This is a development cl
 ```sh
 .venv/bin/python -m auto_quality.pipeline
 .venv/bin/python scripts/validate.py
+.venv/bin/python scripts/profile_dates.py --as-of 2026-09-30
 .venv/bin/python scripts/export.py
 .venv/bin/python -m pytest
 ```
