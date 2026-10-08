@@ -1,0 +1,16 @@
+.venv/
+.env
+.runtime/
+data/raw/
+data/processed/
+exports/
+reports/runs/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+.DS_Store
+*.log
+*.pem
+*.key
+.env.*
+!.env.example

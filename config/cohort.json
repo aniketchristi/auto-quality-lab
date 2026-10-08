@@ -1,0 +1,12 @@
+{
+  "description": "Initial US compact and midsize passenger-car cohort. API model labels do not guarantee trim or powertrain coverage.",
+  "model_years": [2018, 2019, 2020, 2021, 2022],
+  "vehicles": [
+    {"make": "HONDA", "model": "CIVIC"},
+    {"make": "HONDA", "model": "ACCORD"},
+    {"make": "TOYOTA", "model": "COROLLA"},
+    {"make": "TOYOTA", "model": "CAMRY"},
+    {"make": "MAZDA", "model": "MAZDA3"},
+    {"make": "VOLKSWAGEN", "model": "GOLF"}
+  ]
+}
