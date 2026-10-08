@@ -10,7 +10,7 @@ A public-data workbench for reviewing automotive complaint reporting patterns. T
 - A local investigation dashboard with receipt-time filtering, component screening, and narrative evidence.
 - Analytical CSVs and documented Power BI measures for a future Windows deliverable.
 
-Current status: working starter environment. Monitoring rules are heuristics awaiting evaluation; model-variant coverage needs auditing. A native Power BI report and final analytical case studies are not yet complete.
+Current status: working starter environment with reporting-date and model-label audits. Monitoring rules are heuristics awaiting evaluation. Separately named variants are excluded; see docs/coverage-audit.md. A native Power BI report and final analytical case studies are not yet complete.
 
 ```mermaid
 flowchart LR
@@ -69,6 +69,7 @@ Local database authentication trusts local connections. This is a development cl
 .venv/bin/python -m auto_quality.pipeline
 .venv/bin/python scripts/validate.py
 .venv/bin/python scripts/profile_dates.py --as-of 2026-09-30
+.venv/bin/python scripts/audit_coverage.py
 .venv/bin/python scripts/export.py
 .venv/bin/python -m pytest
 ```

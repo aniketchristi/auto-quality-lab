@@ -8,7 +8,7 @@ This environment provides a first working pipeline and workbench. It is not yet 
 
 ## Next milestones
 
-1. Audit model labels and variant coverage. Inspect official available-model lists and decide whether hatchback, hybrid, performance, and separate model names should enter the cohort. Document exclusions.
+1. Completed initial model-label audit: see coverage-audit.md for official lists and variant exclusions. Any future cohort expansion must preserve distinct complaint counting.
 2. Profile reporting patterns and date quality. Separate receipt and incident time, inspect reporting lags and suspicious dates, and review missingness. Do not impute absent crash flags as false.
 3. Manually review a sample of narratives. Record symptom definitions and ambiguous cases before considering a classifier. Keep any personal details out of public deliverables.
 4. Evaluate screening rules against a simple volume baseline using historical receipt cutoffs. Manual adjudication and recall context are evidence, not complete ground truth. Avoid future-record leakage.

@@ -97,6 +97,22 @@ with investigation:
                 st.write('Remedy: '+(row.remedy or 'Not provided'))
                 st.link_button('View official campaign record',f'https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber={row.campaign_number}')
 with sources:
+    st.subheader('Model-label coverage')
+    st.info('Exact-label cohort: separately named hybrids, hatchbacks, and performance variants are excluded. GOLF 2022 is absent from both audited official model lists; treat that row as unavailable label coverage, not evidence of zero failures.')
+    coverage_file = ROOT / 'data/processed/coverage_audit.json'
+    if coverage_file.exists():
+        import json
+        coverage = json.loads(coverage_file.read_text())
+        coverage_rows = []
+        for entry in coverage['files']:
+            for family, labels in entry['family_candidates'].items():
+                if entry['make'] + ' ' + family in selected and entry['year'] in years:
+                    coverage_rows.append({'make':entry['make'], 'configured_model':family,
+                        'year':entry['year'], 'list':'Complaints' if entry['issue_type']=='c' else 'Recalls',
+                        'exact_label_present':entry['configured_labels_present'][family],
+                        'related_labels':', '.join(labels)})
+        st.dataframe(pd.DataFrame(coverage_rows), hide_index=True, width='stretch')
+        st.caption('Substring candidates support manual coverage review. They do not establish every manufactured variant. This audit uses current model lists, independently of the selected receipt cutoff.')
     st.subheader('Reporting dates in the selected scope')
     date_records = read('SELECT odi_number,incident_date,received_date FROM complaint_detail WHERE vehicle_key=ANY(%s)', (keys,))
     date_summary, lag_distribution = date_profile(date_records, as_of)
