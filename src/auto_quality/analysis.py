@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 import pandas as pd
 from .common import connect
+from .screening import apply_rule
 
 def read(query, params=None):
     with connect() as conn:
@@ -23,9 +24,7 @@ def review_queue(as_of=None, window=90, minimum=10):
         GROUP BY 1,2,3,4,5''', {'recent':recent_start,'baseline':baseline_start,'as_of':as_of})
     if result.empty:
         return result
-    result['change'] = result.recent_complaints - result.baseline_complaints
-    result['ratio'] = result.recent_complaints / result.baseline_complaints.replace(0,float('nan'))
-    result['review_flag'] = (result.recent_complaints >= minimum) & (result.change >= 5) & ((result.ratio >= 2) | (result.baseline_complaints == 0))
+    result = apply_rule(result, minimum)
     result['reason'] = result.apply(lambda r: 'Increase merits manual review' if r.review_flag else 'Below screening thresholds',axis=1)
     result['as_of'] = str(as_of)
     return result.sort_values(['review_flag','change','recent_complaints'],ascending=False).reset_index(drop=True)

@@ -70,6 +70,7 @@ Local database authentication trusts local connections. This is a development cl
 .venv/bin/python scripts/validate.py
 .venv/bin/python scripts/profile_dates.py --as-of 2026-09-30
 .venv/bin/python scripts/audit_coverage.py
+.venv/bin/python scripts/evaluate_screening.py
 .venv/bin/python scripts/export.py
 .venv/bin/python -m pytest
 ```

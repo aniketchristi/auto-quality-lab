@@ -97,6 +97,25 @@ with investigation:
                 st.write('Remedy: '+(row.remedy or 'Not provided'))
                 st.link_button('View official campaign record',f'https://api.nhtsa.gov/recalls/campaignNumber?campaignNumber={row.campaign_number}')
 with sources:
+    evaluation_file = ROOT / 'data/processed/screening_evaluation.json'
+    if evaluation_file.exists():
+        import json
+        with st.expander('Historical screening workload evaluation'):
+            evaluation = json.loads(evaluation_file.read_text())
+            workload = pd.DataFrame(evaluation['workload'])
+            st.caption('Fixed full-cohort evaluation: January 2023–September 2026 monthly cutoffs. These results are independent of the sidebar scope. Current revised records are used; this is not defect-detection accuracy.')
+            workload_summary = workload.groupby(['window','minimum'], as_index=False).agg(
+                mean_growth_groups=('growth_review_groups','mean'),
+                maximum_growth_groups=('growth_review_groups','max'),
+                mean_volume_groups=('volume_review_groups','mean'),
+                maximum_volume_groups=('volume_review_groups','max'))
+            st.dataframe(workload_summary.round(2), hide_index=True, width='stretch')
+            chosen_workload = workload[(workload.window==window)&(workload.minimum==minimum)]
+            if not chosen_workload.empty:
+                st.plotly_chart(px.line(chosen_workload, x='cutoff',
+                    y=['growth_review_groups','volume_review_groups'],
+                    labels={'value':'Groups requiring review','cutoff':'Receipt cutoff','variable':'Rule'}), width='stretch')
+            st.caption('Volume baseline flags every group at the same minimum count. An equal-budget baseline also ranks by recent volume. Neither baseline supplies confirmed defect labels. Overlapping monthly windows mean consecutive flags are not independent discoveries.')
     st.subheader('Model-label coverage')
     st.info('Exact-label cohort: separately named hybrids, hatchbacks, and performance variants are excluded. GOLF 2022 is absent from both audited official model lists; treat that row as unavailable label coverage, not evidence of zero failures.')
     coverage_file = ROOT / 'data/processed/coverage_audit.json'

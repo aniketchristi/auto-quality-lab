@@ -20,3 +20,5 @@ One source complaint has an incident date after its receipt date. It remains in 
 Update: reporting-date audit and 40-response model-label coverage audit completed; see date-audit.md and coverage-audit.md. Fifteen local tests pass. Separately named variants remain excluded, and GOLF 2022 has no label in either audited list.
 
 Not completed: manually labeled narrative sample, validated monitoring policy, finished analytical case studies, or a native Power BI file. Power BI Desktop needs Windows access.
+
+Screening update: 405 retrospective workload settings evaluated at 45 monthly receipt cutoffs; 135 pandas/production-SQL count reconciliations passed. Seventeen local tests and dashboard scope checks pass. No defect-detection accuracy claim is made; see screening-evaluation.md.
