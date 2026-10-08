@@ -5,7 +5,7 @@ Audited October 8, 2026: 40 official NHTSA available-model responses (four makes
 The loaded cohort is an exact-label cohort. Separate candidate labels below are excluded from ingestion. Substring matches require review; they are not a complete manufacturer model catalog.
 
 | Make | Year | List | Related labels returned |
-| --- | --- | --- | --- | 
+| --- | --- | --- | --- |
 | HONDA | 2018 | Complaints | CIVIC: CIVIC, CIVIC SI, CIVIC TYPE R; ACCORD: ACCORD, ACCORD HYBRID |
 | HONDA | 2018 | Recalls | CIVIC: CIVIC, CIVIC SI, CIVIC TYPE R; ACCORD: ACCORD, ACCORD HYBRID |
 | HONDA | 2019 | Complaints | CIVIC: CIVIC, CIVIC HATCH, CIVIC HATCH TYPE-R, CIVIC SI; ACCORD: ACCORD, ACCORD HYBRID |
