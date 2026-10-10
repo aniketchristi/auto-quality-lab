@@ -16,3 +16,9 @@ app.multiselect[0].set_value(['HONDA CIVIC'])
 app.date_input[0].set_value(date(2023,12,31)).run()
 assert not app.exception, [e.message for e in app.exception]
 print('Historical cutoff and single-family filter render without exceptions.')
+case_selector = next(widget for widget in app.selectbox if widget.label=='Read analysis')
+for option in ['Accord engine reports','Recommendation','Civic fuel-system reports']:
+    case_selector.set_value(option).run()
+    assert not app.exception, [e.message for e in app.exception]
+    case_selector = next(widget for widget in app.selectbox if widget.label=='Read analysis')
+print('Both case studies and recommendation render without exceptions.')

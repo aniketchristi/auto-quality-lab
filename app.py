@@ -55,7 +55,10 @@ if manifest.exists():
     st.caption(f'Source download: {source_display} · {len(m["files"])} API responses')
 overview, investigation, review, cases, sources = st.tabs(['Reporting trends','Investigation workbench','Manual evidence review','Case studies','Data quality & sources'])
 with cases:
-    st.markdown((ROOT / 'docs/case-01-civic-fuel.md').read_text())
+    case_choice = st.selectbox('Read analysis', ['Civic fuel-system reports','Accord engine reports','Recommendation'])
+    case_files = {'Civic fuel-system reports':'case-01-civic-fuel.md',
+                  'Accord engine reports':'case-02-accord-engine.md', 'Recommendation':'recommendation.md'}
+    st.markdown((ROOT / 'docs' / case_files[case_choice]).read_text())
 with review:
     render_review()
 with overview:
