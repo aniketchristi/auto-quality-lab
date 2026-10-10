@@ -2,7 +2,7 @@
 
 Audited October 8, 2026: 40 official NHTSA available-model responses (four makes, five model years, complaint and recall lists). All responses passed source-count checks; repeated labels were deduplicated.
 
-The loaded cohort is an exact-label cohort. Separate candidate labels below are excluded from ingestion. Substring matches require review; they are not a complete manufacturer model catalog.
+The loaded cohort uses six exact API query labels. Separate candidate labels below are not queried independently. Base-label responses can still contain campaign descriptions covering variants; exact-query scope does not establish trim-level exclusions or completeness. Substring matches require review; they are not a complete manufacturer model catalog.
 
 | Make | Year | List | Related labels returned |
 | --- | --- | --- | --- |

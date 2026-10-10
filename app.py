@@ -53,7 +53,9 @@ if manifest.exists():
     source_time=min(e['retrieved_at'] for e in m['files'])
     source_display=datetime.fromisoformat(source_time).astimezone(ZoneInfo('America/Los_Angeles')).strftime('%b %d, %Y · %I:%M %p %Z')
     st.caption(f'Source download: {source_display} · {len(m["files"])} API responses')
-overview, investigation, review, sources = st.tabs(['Reporting trends','Investigation workbench','Manual evidence review','Data quality & sources'])
+overview, investigation, review, cases, sources = st.tabs(['Reporting trends','Investigation workbench','Manual evidence review','Case studies','Data quality & sources'])
+with cases:
+    st.markdown((ROOT / 'docs/case-01-civic-fuel.md').read_text())
 with review:
     render_review()
 with overview:
@@ -120,7 +122,7 @@ with sources:
                     labels={'value':'Groups requiring review','cutoff':'Receipt cutoff','variable':'Rule'}), width='stretch')
             st.caption('Volume baseline flags every group at the same minimum count. An equal-budget baseline also ranks by recent volume. Neither baseline supplies confirmed defect labels. Overlapping monthly windows mean consecutive flags are not independent discoveries.')
     st.subheader('Model-label coverage')
-    st.info('Exact-label cohort: separately named hybrids, hatchbacks, and performance variants are excluded. GOLF 2022 is absent from both audited official model lists; treat that row as unavailable label coverage, not evidence of zero failures.')
+    st.info('Exact-query-label cohort: separate variant labels were not queried. Base-label results may still include campaigns covering variants; trim coverage is not guaranteed. GOLF 2022 is absent from both audited official model lists; treat that row as unavailable label coverage, not evidence of zero failures.')
     coverage_file = ROOT / 'data/processed/coverage_audit.json'
     if coverage_file.exists():
         import json
