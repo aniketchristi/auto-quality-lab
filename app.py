@@ -7,6 +7,7 @@ import streamlit as st
 from auto_quality.analysis import read, review_queue, last_complete_month
 from auto_quality.common import ROOT
 from auto_quality.quality import date_profile
+from auto_quality.review_ui import render_review
 
 st.set_page_config(page_title='Auto Quality Lab',page_icon=None,layout='wide')
 st.title('Auto Quality Lab')
@@ -52,7 +53,9 @@ if manifest.exists():
     source_time=min(e['retrieved_at'] for e in m['files'])
     source_display=datetime.fromisoformat(source_time).astimezone(ZoneInfo('America/Los_Angeles')).strftime('%b %d, %Y · %I:%M %p %Z')
     st.caption(f'Source download: {source_display} · {len(m["files"])} API responses')
-overview, investigation, sources = st.tabs(['Reporting trends','Investigation workbench','Data quality & sources'])
+overview, investigation, review, sources = st.tabs(['Reporting trends','Investigation workbench','Manual evidence review','Data quality & sources'])
+with review:
+    render_review()
 with overview:
     monthly = read('SELECT * FROM monthly_reporting WHERE vehicle_key=ANY(%s) AND month<=%s',(keys,as_of))
     # A historical cutoff can fall mid-month: derive the chart from filtered detail records.

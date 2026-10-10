@@ -10,6 +10,12 @@ Read each narrative and assign a short symptom code describing the reported beha
 
 Leave review_status as pending until a person has read the evidence. Mark completed only after the fields have been considered. Unknown or ambiguous evidence should stay explicit; it is not a negative finding. Do not label a complaint as a verified defect or a confirmed campaign match based on narrative similarity.
 
+## Review in the dashboard
+
+Open the Manual evidence review tab. Select an assignment, read its narrative, enter a symptom code, and assess component consistency and evidence specificity. Add delay notes or other observations when useful. Confirm that you read the narrative, then save locally. The progress indicator counts completed assignments, not distinct incidents.
+
+Clear Show pending assignments only to inspect or revise saved work. Writes use a temporary file and atomic replacement; stale edits are rejected when another session has changed the packet. Reload and recheck the latest saved work after a stale-edit warning. Local files are not encrypted; keep this dashboard on loopback and do not publish the packet or notes.
+
 ## How to interpret the review
 
 The sample is intentionally small and stratified by selection method. It does not estimate population prevalence, precision, or recall. The reviewer sees the selection stratum, so assessment is not blinded. Complaints can recur across components or cutoffs; review assignments are not independent incidents. Report distinct complaint counts alongside assignment counts.
